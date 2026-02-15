@@ -1,9 +1,88 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Universal Scam Detector | Pakistan</title>
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Embedded CSS -->
+  <style>
+    body {
+      margin: 0;
+      font-family: "Courier New", monospace;
+      background: radial-gradient(circle, #020617, #000);
+      color: #00ffcc;
+      text-align: center;
+    }
+
+    header {
+      padding: 20px;
+      background: #020617;
+      border-bottom: 1px solid #00ffcc;
+    }
+
+    .scanner {
+      background: rgba(2, 6, 23, 0.9);
+      width: 90%;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ffcc;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: black;
+      border: 1px solid #00ffcc;
+      color: #00ffcc;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #00ffcc;
+      color: black;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #00ccaa;
+    }
+
+    #result {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    /* Additional styling for risk levels */
+    .risk-high {
+      color: red;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .risk-moderate {
+      color: orange;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .risk-low {
+      color: blue;
+      font-weight: bold;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
 
@@ -16,16 +95,16 @@
   <input type="text" id="url" placeholder="Paste suspicious URL here">
 
   <select id="type">
-    <option value="job">Fake Job</option>
+    <option value="job">Job</option>
     <option value="shopping">Online Shopping</option>
-    <option value="freelance">Fake Freelancing</option>
-    <option value="scholarship">Fake Scholarship</option>
-    <option value="insurance">Fake Insurance</option>
+    <option value="freelance">Freelancing</option>
+    <option value="scholarship">Scholarship</option>
+    <option value="insurance">Insurance</option>
   </select>
 
   <button onclick="scanURL()">SCAN URL</button>
-  <!-- NEW: Result container 
-  <pre id="result" style="white-space: pre-wrap; margin-top: 20px; background:#f1f1f1; padding:10px; border:1px solid #ccc;"></pre> -->
+
+  <!-- Result container -->
   <div id="result"></div>
 </section>
 
@@ -33,5 +112,62 @@
   <p>⚠️ Cyber Awareness Tool | For Educational Use Only</p>
 </footer>
 
-<script src="script.js"></script>
+<!-- Embedded Script -->
+<script>
+  // Example logic for scanning (replace with your full arrays & logic)
+  const keywords = {
+    job: ["job","career","hiring","apply","resume","interview"],
+    shopping: ["buy","discount","sale","deal","shop"],
+    freelance: ["freelance","gig","remote-work","contract","payment"],
+    scholarship: ["scholarship","grant","funding","award","application"],
+    insurance: ["insurance","policy","claim","premium","coverage"]
+  };
+
+  function getRisk(count) {
+    if(count >= 5) return "High";
+    if(count >= 2) return "Moderate";
+    return "Low";
+  }
+
+  function animateDetecting(element) {
+    let dots = 0;
+    const interval = setInterval(() => {
+      element.innerText = "Detecting" + ".".repeat(dots % 4);
+      dots++;
+    }, 500);
+    return interval;
+  }
+
+  function scanURL() {
+    const urlInput = document.getElementById("url").value.trim().toLowerCase();
+    const typeInput = document.getElementById("type").value;
+    const resultDiv = document.getElementById("result");
+
+    if(!urlInput) {
+      alert("Please enter a URL!");
+      return;
+    }
+
+    const interval = animateDetecting(resultDiv);
+
+    setTimeout(() => {
+      clearInterval(interval);
+
+      const matched = keywords[typeInput].filter(word => urlInput.includes(word));
+      const risk = getRisk(matched.length);
+
+      let riskClass = risk === "High" ? "risk-high" : risk === "Moderate" ? "risk-moderate" : "risk-low";
+      let riskMessage = risk === "Low" ? "No Risk ✅ This link seems safe." : "⚠️ Risk Detected! Do not trust this link.";
+
+      resultDiv.innerHTML = `
+        <p><b>URL:</b> ${urlInput}</p>
+        <p><b>Category:</b> ${typeInput.charAt(0).toUpperCase() + typeInput.slice(1)}</p>
+        <p class="${riskClass}"><b>Risk Level:</b> ${risk} - ${riskMessage}</p>
+      `;
+
+    }, 5000);
+  }
+</script>
+
 </body>
+</html>
