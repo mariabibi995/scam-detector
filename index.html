@@ -1,0 +1,37 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Universal Scam Detector | Pakistan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>🛡️ Universal Online Scam Detector</h1>
+  <p>Pakistan-Based Cyber Scam Detection System</p>
+</header>
+
+<section class="scanner">
+  <input type="text" id="url" placeholder="Paste suspicious URL here">
+
+  <select id="type">
+    <option value="job">Fake Job</option>
+    <option value="shopping">Online Shopping</option>
+    <option value="freelance">Fake Freelancing</option>
+    <option value="scholarship">Fake Scholarship</option>
+    <option value="insurance">Fake Insurance</option>
+  </select>
+
+  <button onclick="scanURL()">SCAN URL</button>
+  <!-- NEW: Result container 
+  <pre id="result" style="white-space: pre-wrap; margin-top: 20px; background:#f1f1f1; padding:10px; border:1px solid #ccc;"></pre> -->
+  <div id="result"></div>
+</section>
+
+<footer>
+  <p>⚠️ Cyber Awareness Tool | For Educational Use Only</p>
+</footer>
+
+<script src="script.js"></script>
+</body>

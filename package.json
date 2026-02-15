@@ -1,0 +1,13 @@
+{
+  "name": "scam-detector",
+  "version": "1.0.0",
+  "type": "module",
+"scripts": {
+  "start": "live-server --port=3000 --open=index.html"
+},
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "open": "^11.0.0"
+  }
+}
